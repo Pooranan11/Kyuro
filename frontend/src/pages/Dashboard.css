@@ -1,0 +1,95 @@
+.dashboard {
+  display: flex;
+  height: 100vh;
+  background: #0f0f0f;
+  overflow: hidden;
+}
+
+.dashboard-sidebar {
+  flex-shrink: 0;
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.75rem 2.25rem;
+  gap: 1rem;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.dashboard-ticker {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.period-selector {
+  display: flex;
+  gap: 0.375rem;
+  background: #111;
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid #1e1e1e;
+}
+
+.period-btn {
+  padding: 0.375rem 1rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #555;
+  transition: all 0.15s;
+}
+
+.period-btn:hover {
+  color: #aaa;
+}
+
+.period-btn.active {
+  background: #6366f1;
+  color: #fff;
+}
+
+.dashboard-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.dashboard-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 1rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.dashboard-error button {
+  padding: 0.4rem 1.25rem;
+  background: #1a1a1a;
+  color: #888;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  border: 1px solid #2a2a2a;
+  transition: all 0.15s;
+}
+
+.dashboard-error button:hover {
+  background: #222;
+  color: #aaa;
+}

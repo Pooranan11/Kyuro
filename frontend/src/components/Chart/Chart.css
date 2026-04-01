@@ -1,0 +1,13 @@
+.chart-wrapper {
+  width: 100%;
+  flex: 1;
+}
+
+.chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 420px;
+  color: #333;
+  font-size: 0.9rem;
+}

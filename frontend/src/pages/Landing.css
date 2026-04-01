@@ -1,0 +1,66 @@
+.landing {
+  min-height: 100vh;
+  background: #0f0f0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+}
+
+.landing-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.landing-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.landing-logo {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -3px;
+  line-height: 1;
+}
+
+.landing-tagline {
+  font-size: 1.15rem;
+  color: #666;
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.landing-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  background: #6366f1;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 9px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.landing-cta:hover {
+  background: #4f52d0;
+  transform: translateY(-1px);
+}
+
+.landing-cta:active {
+  transform: translateY(0);
+}

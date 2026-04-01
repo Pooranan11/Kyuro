@@ -26,4 +26,4 @@ Thumbs.db
 *.log
 
 # Claude Code internals
-.claude/plans/
+.claude/

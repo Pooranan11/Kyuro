@@ -10,8 +10,17 @@ async function api(endpoint, options = {}) {
   return res.json()
 }
 
-export const getPrices = (ticker, period = "1y") =>
-  api(`/prices/${ticker}?period=${period}`)
+const PERIOD_INTERVAL = {
+  "5d":  "1h",
+  "1mo": "1h",
+  "3mo": "1d",
+  "1y":  "1d",
+}
+
+export const getPrices = (ticker, period = "1y") => {
+  const interval = PERIOD_INTERVAL[period] ?? "1d"
+  return api(`/prices/${ticker}?period=${period}&interval=${interval}`)
+}
 
 export const getIndicators = (ticker, type = "rsi") =>
   api(`/indicators/${ticker}?type=${type}`)

@@ -5,10 +5,10 @@ import { getPrices, getWatchlist } from "../api/client"
 import "./Dashboard.css"
 
 const PERIODS = [
-  { label: "1S", value: "5d" },
+  { label: "1W", value: "5d" },
   { label: "1M", value: "1mo" },
   { label: "3M", value: "3mo" },
-  { label: "1A", value: "1y" },
+  { label: "1Y", value: "1y" },
 ]
 
 const DEFAULT_ASSETS = [
@@ -82,14 +82,14 @@ export default function Dashboard() {
         </div>
 
         {loading ? (
-          <div className="dashboard-loading">Chargement...</div>
+          <div className="dashboard-loading">Loading...</div>
         ) : error === "rate_limit" ? (
           <div className="dashboard-error">
-            Yahoo Finance est temporairement indisponible (rate limit).
-            <button onClick={() => { setError(null); setLoading(true) }}>Réessayer</button>
+            Yahoo Finance is temporarily unavailable (rate limit).
+            <button onClick={() => { setError(null); setLoading(true) }}>Retry</button>
           </div>
         ) : (
-          <Chart data={priceData} />
+          <Chart data={priceData} period={period} />
         )}
       </main>
     </div>

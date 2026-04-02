@@ -16,13 +16,13 @@ export default function Sidebar({ assets, onSelect, activeTicker }) {
           className={`filter-btn ${filter === "all" ? "active" : ""}`}
           onClick={() => setFilter("all")}
         >
-          Tous
+          All
         </button>
         <button
           className={`filter-btn ${filter === "stock" ? "active" : ""}`}
           onClick={() => setFilter("stock")}
         >
-          Actions
+          Stocks
         </button>
         <button
           className={`filter-btn ${filter === "crypto" ? "active" : ""}`}

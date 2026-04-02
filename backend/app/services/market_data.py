@@ -1,30 +1,15 @@
 """
 Wrapper yfinance — récupère les prix historiques d'un ticker.
-- Session avec User-Agent navigateur pour éviter le rate limiting Yahoo Finance
 - Retry automatique (3 tentatives, backoff exponentiel)
 """
 import time
 from typing import List, Optional
 
-import requests
 import yfinance as yf
 
 
 class RateLimitError(Exception):
     pass
-
-
-# Session persistante — les cookies Yahoo Finance sont réutilisés entre les appels
-_session = requests.Session()
-_session.headers.update({
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
-    ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.5",
-})
 
 
 def fetch_prices(
@@ -34,15 +19,15 @@ def fetch_prices(
 
     for attempt in range(3):
         try:
-            df = yf.Ticker(ticker, session=_session).history(
-                period=period, interval=interval
-            )
+            df = yf.Ticker(ticker).history(period=period, interval=interval)
             if df.empty:
                 return None
 
+            date_fmt = "%Y-%m-%d %H:%M:%S" if interval != "1d" else "%Y-%m-%d"
+
             return [
                 {
-                    "date": date.strftime("%Y-%m-%d"),
+                    "date": date.strftime(date_fmt),
                     "open": round(float(row["Open"]), 2),
                     "high": round(float(row["High"]), 2),
                     "low": round(float(row["Low"]), 2),
@@ -61,7 +46,7 @@ def fetch_prices(
             if is_rate_limit:
                 last_exc = e
                 if attempt < 2:
-                    time.sleep(2 ** attempt)  # 1s puis 2s
+                    time.sleep(2 ** attempt)
                     continue
                 raise RateLimitError() from last_exc
             return None

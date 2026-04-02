@@ -9,10 +9,28 @@ import {
 } from "recharts"
 import "./Chart.css"
 
-export default function Chart({ data }) {
-  if (!data || data.length === 0) {
-    return <div className="chart-empty">Sélectionnez un actif pour afficher le graphe</div>
+function formatDate(dateStr, period) {
+  const d = new Date(dateStr)
+  if (period === "5d") {
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) +
+      " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
   }
+  if (period === "1mo") {
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) +
+      " " + d.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })
+  }
+  if (period === "1y") {
+    return d.toLocaleDateString("en-US", { month: "short", year: "numeric" })
+  }
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+}
+
+export default function Chart({ data, period = "1y" }) {
+  if (!data || data.length === 0) {
+    return <div className="chart-empty">Select an asset to display the chart</div>
+  }
+
+  const tickInterval = Math.max(0, Math.floor(data.length / 6) - 1)
 
   return (
     <div className="chart-wrapper">
@@ -24,14 +42,16 @@ export default function Chart({ data }) {
             tick={{ fill: "#555", fontSize: 11 }}
             tickLine={false}
             axisLine={{ stroke: "#222" }}
-            interval="preserveStartEnd"
+            interval={tickInterval}
+            tickFormatter={(v) => formatDate(v, period)}
           />
           <YAxis
             tick={{ fill: "#555", fontSize: 11 }}
             tickLine={false}
             axisLine={false}
             width={80}
-            tickFormatter={(v) => `${v.toLocaleString()}`}
+            tickFormatter={(v) => `$${v.toLocaleString("en-US")}`}
+            domain={["auto", "auto"]}
           />
           <Tooltip
             contentStyle={{
@@ -42,7 +62,8 @@ export default function Chart({ data }) {
             }}
             labelStyle={{ color: "#888", marginBottom: 4 }}
             itemStyle={{ color: "#6366f1" }}
-            formatter={(value) => [`${value.toLocaleString()}`, "Clôture"]}
+            formatter={(value) => [`$${value.toLocaleString("en-US")}`, "Close"]}
+            labelFormatter={(label) => formatDate(label, period)}
           />
           <Line
             type="monotone"
